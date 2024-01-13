@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CDN link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>할일 목록</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-top: 0; padding-bottom: 0;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-link nav-link" id="settingsDropdown" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">메뉴</button>
+                        <div class="dropdown-menu" aria-labelledby="settingsDropdown">
+                            <!-- 다크 모드 설정 항목 -->
+                            <div class="dropdown-item">
+                                <h6>다크 모드</h6>
+                                <div class="form-check">
+                                    <input type="radio" name="darkModeOption" class="form-check-input" id="autoDarkMode"
+                                        onclick="toggleDarkMode('auto')">
+                                    <label class="form-check-label" for="autoDarkMode">자동 (시스템 설정에 따름)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="darkModeOption" class="form-check-input"
+                                        id="alwaysDarkMode" onclick="toggleDarkMode('always')">
+                                    <label class="form-check-label" for="alwaysDarkMode">항상 활성화</label>
+                                </div>
+                            </div>
+                            <button class="dropdown-item" onclick="resetApp()">앱 초기화</button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" onclick="exitApp()">종료</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mt-3 text-center">할일 목록</h1>
+        <div class="row mt-3">
+            <div class="col-md-8 mx-auto">
+                <div class="add-task">
+                    <!-- 할일 내용 입력 창 -->
+                    <input type="text" id="taskInput" class="form-control mb-3" placeholder="할일 추가">
+                    <div class="form-row">
+                        <div class="col-8">
+                            <!-- 날짜, 시간 입력 창 -->
+                            <input type="datetime-local" id="datetimeInput" class="form-control">
+                        </div>
+                        <div class="col-4">
+                            <!-- 추가 버튼 -->
+                            <button onclick="addTask()" class="btn btn-secondary btn-block btn-sm mt-2">추가</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul id="taskList" class="list-group mt-3"></ul>
+        <h2 class="mt-3">Remind</h2>
+        <ul id="remindList" class="list-group"></ul>
+        <h2 class="mt-3">끝난 일</h2>
+        <ul id="completedList" class="list-group"></ul>
+    </div>
+
+    <!-- Bootstrap 및 스크립트 CDN 링크 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
