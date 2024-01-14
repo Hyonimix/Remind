@@ -39,8 +39,8 @@ function renderTasks() {
 
             li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'completed' : ''}">
                               ${task.title} - ${task.datetime || ''}
-                              ${isCompleted ? `<button class="btn btn-danger btn-sm ml-2" onclick="deleteTask(${task.id})">삭제</button>` : ''}
-                              ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>` : ''}
+                              ${isCompleted ? `<button class="btn btn-danger btn-sm ml-2" onclick="deleteTask(${task.id})">削除</button>` : ''}
+                              ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>` : ''}
                             </span>`;
 
             if (isCompleted) {
