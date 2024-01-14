@@ -30,15 +30,18 @@ function renderTasks() {
         const taskDatetime = new Date(task.datetime);
 
         if (task.datetime && now > taskDatetime && !task.completed) {
-            li.innerHTML = `<span class="remind list-group-item">${task.title} - ${task.datetime}</span>`;
+            li.innerHTML = `<span class="remind list-group-item">${task.title} - ${task.datetime}
+                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>
+                            </span>`;
             remindList.appendChild(li);
         } else {
             const isCompleted = task.completed || (task.datetime && now > taskDatetime);
 
-            li.innerHTML = `<span onclick="toggleCompleted(${task.id})" class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'completed' : ''}">
-                          ${task.title} - ${task.datetime || ''}
-                          ${isCompleted ? `<button class="btn btn-danger btn-sm ml-2" onclick="deleteTask(${task.id})">삭제</button>` : ''}
-                        </span>`;
+            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'completed' : ''}">
+                              ${task.title} - ${task.datetime || ''}
+                              ${isCompleted ? `<button class="btn btn-danger btn-sm ml-2" onclick="deleteTask(${task.id})">삭제</button>` : ''}
+                              ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>` : ''}
+                            </span>`;
 
             if (isCompleted) {
                 completedList.appendChild(li);
@@ -67,7 +70,12 @@ function addTask() {
     defaultDatetime.setDate(defaultDatetime.getDate() + 1);
     defaultDatetime.setHours(0, 0, 0, 0);
 
-    const newTask = { id: tasks.length + 1, title: taskInput.value, datetime: datetimeInput.value || defaultDatetime.toISOString(), completed: false };
+    const newTask = {
+        id: tasks.length + 1,
+        title: taskInput.value,
+        datetime: datetimeInput.value || defaultDatetime.toISOString(),
+        completed: false
+    };
     tasks.push(newTask);
     renderTasks();
     taskInput.value = '';
@@ -85,6 +93,14 @@ function toggleCompleted(id) {
 function toggleCompletedList() {
     const completedList = document.getElementById('completedList');
     completedList.classList.toggle('show');
+}
+
+function completeTask(id) {
+    const task = tasks.find(task => task.id === id);
+    if (task) {
+        task.completed = true;
+        renderTasks();
+    }
 }
 
 function deleteTask(id) {
