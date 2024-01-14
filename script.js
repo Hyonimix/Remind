@@ -107,7 +107,7 @@ function addTask() {
     // 기본값으로 내일 00시 설정
     const defaultDatetime = new Date();
     defaultDatetime.setDate(defaultDatetime.getDate() + 1);
-    defaultDatetime.setHours(0, 0, 0, 0);
+    defaultDatetime.setHours(9, 0, 0, 0);
 
     const newTask = {
         id: tasks.length + 1,
