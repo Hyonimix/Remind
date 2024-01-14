@@ -28,7 +28,7 @@ function checkNotifications() {
             !task.notified &&
             !isTaskInRemindList(task)
         ) {
-            alert(`할 일 알림: ${task.title}`);
+            alert(`リマインド: ${task.title}`);
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
             location.reload(); // 페이지 새로고침
         }
