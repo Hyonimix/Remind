@@ -98,27 +98,25 @@ function addTask() {
     const taskInput = document.getElementById('taskInput');
     const datetimeInput = document.getElementById('datetimeInput');
 
-    // 할일 내용이 입력되지 않았을 경우 추가되지 않도록 함
-    if (!taskInput.value) {
+    // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
+    if (!taskInput.value && !datetimeInput.value) {
+        alert('内容と予定時間を入力してください。');
+    } else if (!taskInput.value) {
         alert('内容を入力してください。');
-        return;
+    } else if (!datetimeInput.value) {
+        alert('下のテキストボックスをタップして日付と時間を入力してください。');
+    } else {
+        const newTask = {
+            id: tasks.length + 1,
+            title: taskInput.value,
+            datetime: datetimeInput.value,
+            completed: false
+        };
+        tasks.push(newTask);
+        renderTasks();
+        taskInput.value = '';
+        datetimeInput.value = '';
     }
-
-    // 기본값으로 내일 00시 설정
-    const defaultDatetime = new Date();
-    defaultDatetime.setDate(defaultDatetime.getDate() + 1);
-    defaultDatetime.setHours(9, 0, 0, 0);
-
-    const newTask = {
-        id: tasks.length + 1,
-        title: taskInput.value,
-        datetime: datetimeInput.value || defaultDatetime.toISOString(),
-        completed: false
-    };
-    tasks.push(newTask);
-    renderTasks();
-    taskInput.value = '';
-    datetimeInput.value = '';
 }
 
 function toggleCompleted(id) {
