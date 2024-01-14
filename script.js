@@ -21,12 +21,29 @@ function checkNotifications() {
         const now = new Date();
         const taskDatetime = new Date(task.datetime);
 
-        if (task.datetime && now > taskDatetime && !task.completed && !task.notified) {
-            alert(`リマインド: ${task.title}`);
+        if (
+            task.datetime &&
+            now > taskDatetime &&
+            !task.completed &&
+            !task.notified &&
+            !isTaskInRemindList(task)
+        ) {
+            alert(`할 일 알림: ${task.title}`);
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
             location.reload(); // 페이지 새로고침
         }
     });
+}
+
+function isTaskInRemindList(task) {
+    const remindList = document.getElementById('remindList');
+    const remindItems = remindList.getElementsByClassName('remind');
+    for (const item of remindItems) {
+        if (item.innerText.includes(task.title)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 매 10초마다 알림 확인
@@ -48,7 +65,7 @@ function renderTasks() {
         if (task.datetime && now > taskDatetime && !task.completed) {
             li.innerHTML = `<span class="remind list-group-item">${task.title}</span>
                             <span class="remind list-group-item">${task.datetime}
-                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>
+                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>
                             </span>`;
             remindList.appendChild(li);
         } else {
@@ -60,8 +77,8 @@ function renderTasks() {
                                 ${task.datetime ? `<br>${task.datetime}` : ''}
                               </div>
                               <div>
-                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : ''}
-                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>` : ''}
+                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">삭제</button>` : ''}
+                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>` : ''}
                               </div>
                             </span>`;
 
