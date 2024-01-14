@@ -16,9 +16,6 @@ function saveTasks() {
 // 초기 할일 목록 로드
 const tasks = loadTasks();
 
-const remindTasks = [];
-const completedTasks = [];
-
 function renderTasks() {
     const taskList = document.getElementById('taskList');
     const remindList = document.getElementById('remindList');
@@ -33,19 +30,17 @@ function renderTasks() {
         const taskDatetime = new Date(task.datetime);
 
         if (task.datetime && now > taskDatetime && !task.completed) {
-            li.innerHTML = `<span class="remind">${task.title} - ${task.datetime}</span>`;
+            li.innerHTML = `<span class="remind list-group-item">${task.title} - ${task.datetime}</span>`;
             remindList.appendChild(li);
         } else {
             const isCompleted = task.completed || (task.datetime && now > taskDatetime);
 
-            li.innerHTML = `<span onclick="toggleCompleted(${task.id})" class="${isCompleted ? 'completed' : ''}">${task.title} - ${task.datetime}</span>`;
+            li.innerHTML = `<span onclick="toggleCompleted(${task.id})" class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'completed' : ''}">
+                          ${task.title} - ${task.datetime || ''}
+                          ${isCompleted ? `<button class="btn btn-danger btn-sm ml-2" onclick="deleteTask(${task.id})">삭제</button>` : ''}
+                        </span>`;
 
             if (isCompleted) {
-                // 완료된 항목에 삭제 버튼 추가
-                const deleteButton = document.createElement('button');
-                deleteButton.innerText = '삭제';
-                deleteButton.onclick = () => deleteTask(task.id);
-                li.appendChild(deleteButton);
                 completedList.appendChild(li);
             } else {
                 taskList.appendChild(li);
@@ -67,7 +62,12 @@ function addTask() {
         return;
     }
 
-    const newTask = { id: tasks.length + 1, title: taskInput.value, datetime: datetimeInput.value, completed: false };
+    // 기본값으로 내일 00시 설정
+    const defaultDatetime = new Date();
+    defaultDatetime.setDate(defaultDatetime.getDate() + 1);
+    defaultDatetime.setHours(0, 0, 0, 0);
+
+    const newTask = { id: tasks.length + 1, title: taskInput.value, datetime: datetimeInput.value || defaultDatetime.toISOString(), completed: false };
     tasks.push(newTask);
     renderTasks();
     taskInput.value = '';
@@ -91,65 +91,13 @@ function deleteTask(id) {
 }
 
 function resetApp() {
-    // Local Storage 비우기
     localStorage.clear();
-
-    // 초기 할일 목록 로드
-    tasks.length = 0;
-    const loadedTasks = loadTasks();
-    tasks.push(...loadedTasks);
-
-    // 초기 렌더링
-    renderTasks();
+    location.reload();
 }
 
-function openSettings() {
-    const settingsMenu = document.querySelector('.settings-menu');
-    settingsMenu.classList.toggle('show');
+function closeApp() {
+    window.close();
 }
 
 // 초기 렌더링
 renderTasks();
-
-// 다크 모드 토글
-const darkModeToggle = document.getElementById('darkModeToggle');
-darkModeToggle.addEventListener('change', () => {
-    if (darkModeToggle.checked) {
-        activateDarkMode();
-    } else {
-        deactivateDarkMode();
-    }
-});
-
-// 항상 다크 모드 활성화
-function activateDarkMode() {
-    document.body.classList.add('dark-mode');
-    document.querySelector('.navbar').classList.add('dark-mode');
-}
-
-// 다크 모드 비활성화
-function deactivateDarkMode() {
-    document.body.classList.remove('dark-mode');
-    document.querySelector('.navbar').classList.remove('dark-mode');
-}
-
-// 다크 모드 옵션 토글
-function toggleDarkMode(option) {
-    if (option === 'auto') {
-        // 자동 모드
-        deactivateDarkMode();
-    } else if (option === 'always') {
-        // 항상 활성화 모드
-        activateDarkMode();
-    }
-}
-
-// 앱 초기화
-function resetApp() {
-    // 초기화 로직 추가
-}
-
-// 앱 종료
-function exitApp() {
-    // 종료 로직 추가
-}
