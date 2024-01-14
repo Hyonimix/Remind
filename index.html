@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <title>할일 목록</title>
+    <title>To-Do</title>
 </head>
 
 <body>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">할일 목록</a>
+        <a class="navbar-brand" href="#">To-Do</a>
         <div class="form-inline">
             <button class="btn btn-outline-success my-2 my-sm-0 mr-2" onclick="resetApp()">Reset</button>
         </div>
@@ -20,14 +20,14 @@
     <div class="container mt-4">
         <div class="add-task">
             <!-- 할일, 날짜, 시간 입력창 및 버튼 -->
-            <input type="text" id="taskInput" class="form-control" placeholder="할일 추가">
+            <input type="text" id="taskInput" class="form-control" placeholder="内容">
             <input type="datetime-local" id="datetimeInput" class="form-control">
-            <button class="btn btn-primary mt-2" onclick="addTask()">추가</button>
+            <button class="btn btn-primary mt-2" onclick="addTask()">追加</button>
         </div>
         <ul id="taskList" class="list-group mt-3"></ul>
-        <h2 class="h4 mt-4">Remind</h2>
+        <h2 class="h4 mt-4">リマインド</h2>
         <ul id="remindList" class="list-group"></ul>
-        <h2 class="h4 mt-4" onclick="toggleCompletedList()">끝난 일</h2>
+        <h2 class="h4 mt-4" onclick="toggleCompletedList()">終了目録（タップして開く）</h2>
         <ul id="completedList" class="list-group completedList"></ul>
     </div>
 
