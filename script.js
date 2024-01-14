@@ -61,7 +61,7 @@ function addTask() {
 
     // 할일 내용이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value) {
-        alert('할일 내용을 입력하세요.');
+        alert('内容を入力してください。');
         return;
     }
 
