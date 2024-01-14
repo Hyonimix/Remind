@@ -82,6 +82,11 @@ function toggleCompleted(id) {
     }
 }
 
+function toggleCompletedList() {
+    const completedList = document.getElementById('completedList');
+    completedList.classList.toggle('show');
+}
+
 function deleteTask(id) {
     const index = tasks.findIndex(task => task.id === id);
     if (index !== -1) {
@@ -93,10 +98,6 @@ function deleteTask(id) {
 function resetApp() {
     localStorage.clear();
     location.reload();
-}
-
-function closeApp() {
-    window.close();
 }
 
 // 초기 렌더링
