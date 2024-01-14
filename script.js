@@ -65,7 +65,7 @@ function renderTasks() {
         if (task.datetime && now > taskDatetime && !task.completed) {
             li.innerHTML = `<span class="remind list-group-item">${task.title}</span>
                             <span class="remind list-group-item">${task.datetime}
-                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>
+                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>
                             </span>`;
             remindList.appendChild(li);
         } else {
@@ -77,8 +77,8 @@ function renderTasks() {
                                 ${task.datetime ? `<br>${task.datetime}` : ''}
                               </div>
                               <div>
-                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">삭제</button>` : ''}
-                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>` : ''}
+                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : ''}
+                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>` : ''}
                               </div>
                             </span>`;
 
