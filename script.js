@@ -8,16 +8,6 @@ function loadTasks() {
     }
 }
 
-// Local Storage에서 할일 목록을 불러오는 함수
-function loadTasks() {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-        return JSON.parse(storedTasks);
-    } else {
-        return [];
-    }
-}
-
 // Local Storage에 할일 목록을 저장하는 함수
 function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -34,6 +24,7 @@ function checkNotifications() {
         if (task.datetime && now > taskDatetime && !task.completed && !task.notified) {
             alert(`할 일 알림: ${task.title}`);
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
+            location.reload(); // 페이지 새로고침
         }
     });
 }
@@ -57,7 +48,7 @@ function renderTasks() {
         if (task.datetime && now > taskDatetime && !task.completed) {
             li.innerHTML = `<span class="remind list-group-item">${task.title}</span>
                             <span class="remind list-group-item">${task.datetime}
-                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>
+                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>
                             </span>`;
             remindList.appendChild(li);
         } else {
@@ -69,8 +60,8 @@ function renderTasks() {
                                 ${task.datetime ? `<br>${task.datetime}` : ''}
                               </div>
                               <div>
-                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">삭제</button>` : ''}
-                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">완료</button>` : ''}
+                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : ''}
+                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>` : ''}
                               </div>
                             </span>`;
 
@@ -85,7 +76,6 @@ function renderTasks() {
     // 변경된 할일 목록을 저장
     saveTasks();
 }
-
 
 function addTask() {
     const taskInput = document.getElementById('taskInput');
