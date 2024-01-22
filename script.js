@@ -1,10 +1,10 @@
 // 내가 입력한 데이터를 디바이스 로컬 저장소에 세이브 및 로드
 function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function loadTasks() {
-    const storedTasks = localStorage.getItem('tasks');
+    const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
         return JSON.parse(storedTasks);
     } else {
@@ -15,8 +15,9 @@ function loadTasks() {
 // 초기 할일 목록 로드
 const tasks = loadTasks();
 
+// 알림 기능
 function checkNotifications() {
-    tasks.forEach(task => {
+    tasks.forEach((task) => {
         const now = new Date();
         const taskDatetime = new Date(task.datetime);
 
@@ -33,10 +34,12 @@ function checkNotifications() {
         }
     });
 }
+// 디바이스와 시간 동기화를 위해 setInterval 함수로 10초마다 checkNotifications 함수를 실행
+setInterval(checkNotifications, 10000);
 
 function isTaskInRemindList(task) {
-    const remindList = document.getElementById('remindList');
-    const remindItems = remindList.getElementsByClassName('remind');
+    const remindList = document.getElementById("remindList");
+    const remindItems = remindList.getElementsByClassName("remind");
     for (const item of remindItems) {
         if (item.innerText.includes(task.title)) {
             return true;
@@ -45,19 +48,16 @@ function isTaskInRemindList(task) {
     return false;
 }
 
-// 매 10초마다 알림 확인
-setInterval(checkNotifications, 10000); // 10초마다 실행
-
 function renderTasks() {
-    const taskList = document.getElementById('taskList');
-    const remindList = document.getElementById('remindList');
-    const completedList = document.getElementById('completedList');
-    taskList.innerHTML = '';
-    remindList.innerHTML = '';
-    completedList.innerHTML = '';
+    const taskList = document.getElementById("taskList");
+    const remindList = document.getElementById("remindList");
+    const completedList = document.getElementById("completedList");
+    taskList.innerHTML = "";
+    remindList.innerHTML = "";
+    completedList.innerHTML = "";
 
-    tasks.forEach(task => {
-        const li = document.createElement('li');
+    tasks.forEach((task) => {
+        const li = document.createElement("li");
         const now = new Date();
         const taskDatetime = new Date(task.datetime);
 
@@ -68,16 +68,24 @@ function renderTasks() {
                             </span>`;
             remindList.appendChild(li);
         } else {
-            const isCompleted = task.completed || (task.datetime && now > taskDatetime);
+            const isCompleted =
+                task.completed || (task.datetime && now > taskDatetime);
 
-            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'completed' : ''}">
+            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? "completed" : ""
+                }">
                               <div>
                                 ${task.title}
-                                ${task.datetime ? `<br>${task.datetime}` : ''}
+                                ${task.datetime ? `<br>${task.datetime}` : ""}
                               </div>
                               <div>
-                                ${isCompleted ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : ''}
-                                ${!isCompleted ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>` : ''}
+                                ${isCompleted
+                    ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>`
+                    : ""
+                }
+                                ${!isCompleted
+                    ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>`
+                    : ""
+                }
                               </div>
                             </span>`;
 
@@ -94,32 +102,32 @@ function renderTasks() {
 }
 
 function addTask() {
-    const taskInput = document.getElementById('taskInput');
-    const datetimeInput = document.getElementById('datetimeInput');
+    const taskInput = document.getElementById("taskInput");
+    const datetimeInput = document.getElementById("datetimeInput");
 
     // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value && !datetimeInput.value) {
-        alert('内容と予定時間を入力してください。');
+        alert("内容と予定時間を入力してください。");
     } else if (!taskInput.value) {
-        alert('内容を入力してください。');
+        alert("内容を入力してください。");
     } else if (!datetimeInput.value) {
-        alert('下のテキストボックスをタップして日付と時間を入力してください。');
+        alert("下のテキストボックスをタップして日付と時間を入力してください。");
     } else {
         const newTask = {
             id: tasks.length + 1,
             title: taskInput.value,
             datetime: datetimeInput.value,
-            completed: false
+            completed: false,
         };
         tasks.push(newTask);
         renderTasks();
-        taskInput.value = '';
-        datetimeInput.value = '';
+        taskInput.value = "";
+        datetimeInput.value = "";
     }
 }
 
 function toggleCompleted(id) {
-    const task = tasks.find(task => task.id === id);
+    const task = tasks.find((task) => task.id === id);
     if (task) {
         task.completed = !task.completed;
         renderTasks();
@@ -127,12 +135,12 @@ function toggleCompleted(id) {
 }
 
 function toggleCompletedList() {
-    const completedList = document.getElementById('completedList');
-    completedList.classList.toggle('show');
+    const completedList = document.getElementById("completedList");
+    completedList.classList.toggle("show");
 }
 
 function completeTask(id) {
-    const task = tasks.find(task => task.id === id);
+    const task = tasks.find((task) => task.id === id);
     if (task) {
         task.completed = true;
         renderTasks();
@@ -140,7 +148,7 @@ function completeTask(id) {
 }
 
 function deleteTask(id) {
-    const index = tasks.findIndex(task => task.id === id);
+    const index = tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
         tasks.splice(index, 1);
         renderTasks();
