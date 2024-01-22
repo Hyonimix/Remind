@@ -1,4 +1,8 @@
-// Local Storage에서 할일 목록을 불러오는 함수
+// 내가 입력한 데이터를 디바이스 로컬 저장소에 세이브 및 로드
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
 function loadTasks() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
@@ -6,11 +10,6 @@ function loadTasks() {
     } else {
         return [];
     }
-}
-
-// Local Storage에 할일 목록을 저장하는 함수
-function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // 초기 할일 목록 로드

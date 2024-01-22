@@ -72,6 +72,6 @@ body {
 }
 
 .completedListHeader {
-    font-size: 1.2rem; /* 폰트 크기를 작게 조정 */
-    color: #868e96; /* 색상을 흐리게 조정 */
+    font-size: 1.2rem;
+    color: #868e96;
 }
