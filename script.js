@@ -34,8 +34,8 @@ function checkNotifications() {
         }
     });
 }
-// 디바이스와 시간 동기화를 위해 setInterval 함수로 10초마다 checkNotifications 함수를 실행
-setInterval(checkNotifications, 10000);
+// 디바이스와 시간 동기화를 위해 setInterval 함수로 1초마다 checkNotifications 함수를 실행
+setInterval(checkNotifications, 1000);
 
 function isTaskInRemindList(task) {
     const remindList = document.getElementById("remindList");
