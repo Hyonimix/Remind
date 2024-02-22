@@ -32,7 +32,7 @@ function checkNotifications() {
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
             location.reload(); // 페이지 새로고침
         }
-        if (task.completed) {
+        if (isTaskInRemindList(task)) {
             task.notified = false;
         }
     });
