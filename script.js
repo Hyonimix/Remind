@@ -32,6 +32,9 @@ function checkNotifications() {
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
             location.reload(); // 페이지 새로고침
         }
+        if (task.completed) {
+            task.notified = false;
+        }
     });
 }
 // 디바이스와 시간 동기화를 위해 setInterval 함수로 1초마다 checkNotifications 함수를 실행
