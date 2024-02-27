@@ -51,6 +51,7 @@ function isTaskInRemindList(task) {
     return false;
 }
 
+// 할일 목록 렌더링
 function renderTasks() {
     const taskList = document.getElementById("taskList");
     const remindList = document.getElementById("remindList");
@@ -76,11 +77,11 @@ function renderTasks() {
 
             li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? "completed" : ""
                 }">
-                              <div>
+                            <div>
                                 ${task.title}
                                 ${task.datetime ? `<br>${task.datetime}` : ""}
-                              </div>
-                              <div>
+                            </div>
+                            <div>
                                 ${isCompleted
                     ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>`
                     : ""
@@ -89,7 +90,7 @@ function renderTasks() {
                     ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>`
                     : ""
                 }
-                              </div>
+                            </div>
                             </span>`;
 
             if (isCompleted) {
@@ -129,6 +130,30 @@ function addTask() {
     }
 }
 
+// 알람 반복 기능 토글
+function toggleRepeatAlarm() {
+    const repeatAlarm = document.getElementById('repeatAlarm').checked;
+    localStorage.setItem('repeatAlarm', repeatAlarm);
+}
+
+// 알람 반복 기능이 켜져있다면, 10분마다 반복해서 alert 창을 띄우고 사용자가 등록한 내용을 표시함.
+window.onload = function () {
+    const repeatAlarm = localStorage.getItem('repeatAlarm');
+    if (repeatAlarm === 'true') {
+        setInterval(function () {
+            checkNotifications();
+        }, 600000);
+    }
+}
+
+// 알람 반복 기능 설정 저장값 불러오기
+window.onload = function () {
+    const repeatAlarm = localStorage.getItem('repeatAlarm');
+    if (repeatAlarm !== null) {
+        document.getElementById('repeatAlarm').checked = JSON.parse(repeatAlarm);
+    }
+}
+
 function toggleCompleted(id) {
     const task = tasks.find((task) => task.id === id);
     if (task) {
@@ -161,6 +186,10 @@ function deleteTask(id) {
 function resetApp() {
     localStorage.clear();
     location.reload();
+}
+
+function exitApp() {
+    window.close();
 }
 
 // 초기 렌더링

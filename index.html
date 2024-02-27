@@ -10,10 +10,27 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">リマインド</a>
-        <div class="form-inline">
-            <button class="btn btn-outline-success my-2 my-sm-0 mr-2" onclick="resetApp()">Reset</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-flex align-items-center ml-auto">
+                    <div class="nav-link custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="repeatAlarm" checked onchange="toggleRepeatAlarm()">
+                        <label class="custom-control-label" for="repeatAlarm">Re-Remind</label>
+                    </div>
+                    <a class="nav-link">
+                        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" onclick="resetApp()">Reset</button>
+                    </a>
+                    <a class="nav-link">
+                        <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" onclick="exitApp()">Exit</button>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
