@@ -29,7 +29,7 @@ function checkNotifications() {
             !isTaskInRemindList(task)
         ) {
             alert(`リマインド: ${task.title}`);
-            const notification = new Notification("リマインド", {
+            var notification = new Notification("リマインド", {
                 body: task.title,
             });
             notification.onclick = function () {
