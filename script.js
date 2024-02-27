@@ -29,6 +29,12 @@ function checkNotifications() {
             !isTaskInRemindList(task)
         ) {
             alert(`リマインド: ${task.title}`);
+            const notification = new Notification("リマインド", {
+                body: task.title,
+            });
+            notification.onclick = function () {
+                window.focus();
+            };
             task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
             location.reload(); // 페이지 새로고침
         }
@@ -176,6 +182,7 @@ function completeTask(id) {
     }
 }
 
+// 할일 목록 삭제
 function deleteTask(id) {
     const index = tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
