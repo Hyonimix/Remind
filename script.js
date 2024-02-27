@@ -25,7 +25,7 @@ function checkNotifications() {
             task.datetime &&
             now > taskDatetime &&
             !task.completed &&
-            !task.notified &&
+            (!task.notified || now - task.notified >= 600000) && // Re-Remind 타이머 10분
             !isTaskInRemindList(task)
         ) {
             alert(`リマインド: ${task.title}`);
@@ -35,14 +35,31 @@ function checkNotifications() {
             notification.onclick = function () {
                 window.focus();
             };
-            task.notified = true; // 알림을 한 번만 보이도록 플래그 설정
-            location.reload(); // 페이지 새로고침
-        }
-        if (isTaskInRemindList(task)) {
-            task.notified = false;
+            task.notified = now.getTime(); // Re-Remind
+            saveTasks();
+            renderTasks();
+        } else if (
+            task.datetime &&
+            now > taskDatetime &&
+            !task.completed &&
+            task.notified &&
+            now - task.notified >= 3000 && // Re-Remind 타이머 10분 (테스트용 임시 30초)
+            !isTaskInRemindList(task)
+        ) {
+            alert(`Re-リマインド: ${task.title}`);
+            var reNotification = new Notification("Re-リマインド", {
+                body: task.title,
+            });
+            reNotification.onclick = function () {
+                window.focus();
+            };
+            task.notified = now.getTime(); // Re-Remind
+            saveTasks();
+            renderTasks();
         }
     });
 }
+
 
 // 디바이스와 시간 동기화를 위해 setInterval 함수로 1초마다 checkNotifications 함수를 실행
 setInterval(checkNotifications, 1000);
@@ -56,6 +73,13 @@ function isTaskInRemindList(task) {
         }
     }
     return false;
+}
+
+function isAlarmRinged() {
+    if(isNotified)
+    {
+        task.notified = false;
+    }
 }
 
 // 할일 목록 렌더링
