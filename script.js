@@ -15,6 +15,17 @@ function loadTasks() {
 // 초기 할일 목록 로드
 const tasks = loadTasks();
 
+// Notification 허가 요청
+if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+    Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+            console.log("Notification 허가됨");
+        } else {
+            console.log("Notification 거부됨");
+        }
+    });
+}
+
 // 알림 기능
 function checkNotifications() {
     const now = new Date(); // 현재 시간 가져오기
@@ -38,18 +49,16 @@ function checkNotifications() {
 
 // 알림 표시 함수
 function showNotification(message) {
-    // 웹 브라우저 지원 여부 확인
-    if ('Notification' in window) {
-        Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-                var notification = new Notification("리마인드", {
-                    body: message,
-                });
-                notification.onclick = function () {
-                    window.focus();
-                };
+    if (Notification.permission === "granted") {
+        new Notification("リマインド", { body: message });
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
+                new Notification("リマインド", { body: message });
             }
         });
+    } else {
+        alert(`リマインド: ${message}`);
     }
 }
 
@@ -148,27 +157,25 @@ function addTask() {
 
 // 알람 반복 기능 토글
 function toggleRepeatAlarm() {
-    const repeatAlarm = document.getElementById('repeatAlarm').checked;
-    localStorage.setItem('repeatAlarm', repeatAlarm);
+    const repeatAlarm = document.getElementById("repeatAlarm").checked;
+    localStorage.setItem("repeatAlarm", repeatAlarm);
 }
 
-// 알람 반복 기능이 켜져있다면, 10분마다 반복해서 alert 창을 띄우고 사용자가 등록한 내용을 표시함.
+// 알람 반복 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
 window.onload = function () {
-    const repeatAlarm = localStorage.getItem('repeatAlarm');
-    if (repeatAlarm === 'true') {
-        setInterval(function () {
-            checkNotifications();
-        }, 600000);
+    const repeatAlarm = localStorage.getItem("repeatAlarm");
+    if (repeatAlarm === "true") {
+        setInterval(checkNotifications, 600000);
     }
-}
+};
 
 // 알람 반복 기능 설정 저장값 불러오기
 window.onload = function () {
-    const repeatAlarm = localStorage.getItem('repeatAlarm');
+    const repeatAlarm = localStorage.getItem("repeatAlarm");
     if (repeatAlarm !== null) {
-        document.getElementById('repeatAlarm').checked = JSON.parse(repeatAlarm);
+        document.getElementById("repeatAlarm").checked = JSON.parse(repeatAlarm);
     }
-}
+};
 
 function toggleCompleted(id) {
     const task = tasks.find((task) => task.id === id);
