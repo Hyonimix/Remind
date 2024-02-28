@@ -25,7 +25,7 @@ function checkNotifications() {
             task.datetime &&
             now > taskDatetime &&
             !task.completed &&
-            (!task.notified || now - task.notified >= 600000) && // Re-Remind 타이머 10분
+            (!task.notified || now.getTime() - task.notified >= 10000) && // Re-Remind 타이머
             !isTaskInRemindList(task)
         ) {
             alert(`リマインド: ${task.title}`);
@@ -39,8 +39,7 @@ function checkNotifications() {
             saveTasks();
             renderTasks();
         }
-    }
-    );;
+    });
 }
 
 // 디바이스와 시간 동기화를 위해 setInterval 함수로 1초마다 checkNotifications 함수를 실행
@@ -50,7 +49,7 @@ function isTaskInRemindList(task) {
     const remindList = document.getElementById("remindList");
     const remindItems = remindList.getElementsByClassName("remind");
     for (const item of remindItems) {
-        if (item.innerText.includes(task.title)) {
+        if (item.innerText === task.title) {
             return true;
         }
     }
