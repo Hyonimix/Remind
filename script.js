@@ -131,9 +131,10 @@ function renderTasks() {
     saveTasks();
 }
 
+// 할일 추가
 function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const datetimeInput = document.getElementById("datetimeInput");
+    const taskInput = document.getElementById("taskInput"); // 할일 내용 입력란
+    const datetimeInput = document.getElementById("datetimeInput"); // 할일 시간 입력란
 
     // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value && !datetimeInput.value) {
@@ -178,6 +179,7 @@ window.onload = function () {
     }
 };
 
+// 할일 목록 완료 토글
 function toggleCompleted(id) {
     const task = tasks.find((task) => task.id === id);
     if (task) {
@@ -186,11 +188,13 @@ function toggleCompleted(id) {
     }
 }
 
+// 완료된 할일 목록 접기/펼치기
 function toggleCompletedList() {
     const completedList = document.getElementById("completedList");
     completedList.classList.toggle("show");
 }
 
+// 할일 목록 완료
 function completeTask(id) {
     const task = tasks.find((task) => task.id === id);
     if (task) {
