@@ -17,29 +17,40 @@ const tasks = loadTasks();
 
 // 알림 기능
 function checkNotifications() {
+    const now = new Date(); // 현재 시간 가져오기
+
     tasks.forEach((task) => {
-        const now = new Date();
         const taskDatetime = new Date(task.datetime);
 
         if (
             task.datetime &&
             now > taskDatetime &&
             !task.completed &&
-            (!task.notified || now.getTime() - task.notified >= 10000) && // Re-Remind 타이머
             !isTaskInRemindList(task)
         ) {
-            alert(`リマインド: ${task.title}`);
-            var notification = new Notification("リマインド", {
-                body: task.title,
-            });
-            notification.onclick = function () {
-                window.focus();
-            };
-            task.notified = now.getTime(); // Re-Remind
+            showNotification(task.title);
+            task.notified = now.getTime(); // 알림 표시 시간 기록
             saveTasks();
             renderTasks();
         }
     });
+}
+
+// 알림 표시 함수
+function showNotification(message) {
+    // 웹 브라우저 지원 여부 확인
+    if ('Notification' in window) {
+        Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+                var notification = new Notification("리마인드", {
+                    body: message,
+                });
+                notification.onclick = function () {
+                    window.focus();
+                };
+            }
+        });
+    }
 }
 
 // 디바이스와 시간 동기화를 위해 setInterval 함수로 1초마다 checkNotifications 함수를 실행
@@ -54,12 +65,6 @@ function isTaskInRemindList(task) {
         }
     }
     return false;
-}
-
-function isAlarmRinged() {
-    if (isNotified) {
-        task.notified = false;
-    }
 }
 
 // 할일 목록 렌더링
