@@ -1,10 +1,11 @@
-// 내가 입력한 데이터를 디바이스 로컬 저장소에 세이브 및 로드
+// 내가 입력한 데이터를 localStorage에 세이브
 function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks)); // 할일 목록을 tasks라는 이름으로 로컬 저장소에 저장
 }
 
+// localStorage에 저장된 데이터를 로드
 function loadTasks() {
-    const storedTasks = localStorage.getItem("tasks");
+    const storedTasks = localStorage.getItem("tasks"); // 로컬 저장소에 저장된 tasks를 가져옴
     if (storedTasks) {
         return JSON.parse(storedTasks);
     } else {
