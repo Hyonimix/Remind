@@ -13,6 +13,12 @@ body {
     flex-direction: column;
 }
 
+#remindHeader {
+    font-size: 0.9em; /* 글자 크기를 줄입니다. */
+    color: #8B0000; /* 좀 더 어두운 붉은 계통의 색상으로 설정합니다. */
+    font-weight: bold; /* 글자를 볼드로 설정합니다. */
+}
+
 .remind,
 .completed {
     font-size: 1rem;
