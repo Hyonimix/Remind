@@ -188,10 +188,17 @@ function toggleCompleted(id) {
     }
 }
 
-// 완료된 할일 목록 접기/펼치기
+//목록 접기/펼치기
 function toggleCompletedList() {
-    const completedList = document.getElementById("completedList");
-    completedList.classList.toggle("show");
+    $('#completedList').slideToggle();
+}
+
+function toggleRemindList() {
+    $('#remindList').slideToggle();
+}
+
+function toggleTaskList() {
+    $('#taskList').slideToggle();
 }
 
 // 할일 목록 완료

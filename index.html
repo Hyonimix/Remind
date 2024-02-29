@@ -41,9 +41,9 @@
             <input type="datetime-local" id="datetimeInput" class="form-control">
             <button class="btn btn-primary mt-2" onclick="addTask()">追加</button>
         </div>
-        <h2 class="h4 mt-4">予定</h2>
+        <h2 class="h4 mt-4" onclick="toggleTaskList()">予定</h2>
         <ul id="taskList" class="list-group mt-3"></ul>
-        <h2 class="h4 mt-4">リマインド</h2>
+        <h2 class="h4 mt-4" onclick="toggleRemindList()">リマインド</h2>
         <ul id="remindList" class="list-group"></ul>
         <h2 class="h4 mt-4 completedListHeader" onclick="toggleCompletedList()">完了済み（タップして開く）</h2>
         <ul id="completedList" class="list-group completedList"></ul>
@@ -53,7 +53,7 @@
         カン スンヒョン
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
