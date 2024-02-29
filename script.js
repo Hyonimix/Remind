@@ -94,20 +94,28 @@ function renderTasks() {
         const formattedDatetime = formatDate(taskDatetime);
 
         if (task.datetime && now > taskDatetime && !task.completed) {
-            li.innerHTML = `<span class="remind list-group-item">${task.title}</span>
-                <span class="remind list-group-item d-flex justify-content-between align-items-center">${formattedDatetime}
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-warning btn-sm mr-2" onclick="snoozeTask(${task.id})">スヌーズ</button>
-                        <button class="btn btn-success btn-sm" onclick="completeTask(${task.id})">完了</button>
-                    </div>
-                </span>`;
+            li.innerHTML = `
+                        <span class="remind list-group-item">${task.title}</span>
+                        <span class="remind list-group-item
+                            d-flex justify-content-between align-items-center">${formattedDatetime}
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-warning btn-sm mr-2"
+                                    style="margin-right: 10px;" onclick="snoozeTask(${task.id})">スヌーズ</button>
+                                <button class="btn btn-danger btn-sm mr-2"
+                                    style="margin-right: 10px;" onclick="deleteTask(${task.id})">削除</button>
+                                <button class="btn btn-success btn-sm"
+                                onclick="completeTask(${task.id})">完了</button>
+                            </div>
+                        </span>
+                        `;
 
             remindList.appendChild(li);
         } else {
             const isCompleted =
                 task.completed || (task.datetime && now > taskDatetime);
 
-            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? "completed" : ""
+            li.innerHTML = `<span class="list-group-item
+                d-flex justify-content-between align-items-center ${isCompleted ? "completed" : ""
                 }">
                             <div>
                                 ${task.title}
