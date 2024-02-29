@@ -91,11 +91,17 @@ function renderTasks() {
         const now = new Date();
         const taskDatetime = new Date(task.datetime);
 
+        const formattedDatetime = formatDate(taskDatetime);
+
         if (task.datetime && now > taskDatetime && !task.completed) {
             li.innerHTML = `<span class="remind list-group-item">${task.title}</span>
-                            <span class="remind list-group-item">${task.datetime}
-                                <button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>
-                            </span>`;
+                <span class="remind list-group-item d-flex justify-content-between align-items-center">${formattedDatetime}
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-warning btn-sm mr-2" onclick="snoozeTask(${task.id})">スヌーズ</button>
+                        <button class="btn btn-success btn-sm" onclick="completeTask(${task.id})">完了</button>
+                    </div>
+                </span>`;
+
             remindList.appendChild(li);
         } else {
             const isCompleted =
@@ -105,7 +111,7 @@ function renderTasks() {
                 }">
                             <div>
                                 ${task.title}
-                                ${task.datetime ? `<br>${task.datetime}` : ""}
+                                ${task.datetime ? `<br>${formattedDatetime}` : ""}
                             </div>
                             <div>
                                 ${isCompleted
@@ -130,6 +136,29 @@ function renderTasks() {
     // 변경된 할일 목록을 저장
     saveTasks();
 }
+
+// 날짜 및 시간 형식 지정 함수
+function formatDate(date) {
+    const now = new Date();
+    const diff = date.getDate() - now.getDate();
+
+    if (diff === -2) {
+        return "一昨日 " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    } else if (diff === -1) {
+        return "昨日 " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    } else if (diff === 0) {
+        return "今日 " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    } else if (diff === 1) {
+        return "明日 " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    } else if (diff === 2) {
+        return "明後日 " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    } else {
+        const options = { year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" };
+        return date.toLocaleDateString("ja-JP", options).replace(/\//g, '/') + " " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    }
+}
+
+
 
 // 할일 추가
 function addTask() {
@@ -163,6 +192,7 @@ function toggleRepeatAlarm() {
     localStorage.setItem("repeatAlarm", repeatAlarm);
 }
 
+// Re-Remind 기능
 // 알람 반복 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
 window.onload = function () {
     const repeatAlarm = localStorage.getItem("repeatAlarm");
@@ -206,6 +236,18 @@ function completeTask(id) {
     const task = tasks.find((task) => task.id === id);
     if (task) {
         task.completed = true;
+        renderTasks();
+    }
+}
+
+// 할일 목록 스누즈
+function snoozeTask(id) {
+    const task = tasks.find((task) => task.id === id);
+    if (task) {
+        const now = new Date();
+        const taskDatetime = new Date(task.datetime);
+        taskDatetime.setMinutes(now.getMinutes() + 10);
+        task.datetime = taskDatetime;
         renderTasks();
     }
 }
