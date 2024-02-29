@@ -166,8 +166,6 @@ function formatDate(date) {
     }
 }
 
-
-
 // 할일 추가
 function addTask() {
     const taskInput = document.getElementById("taskInput"); // 할일 내용 입력란
@@ -226,17 +224,20 @@ function toggleCompleted(id) {
     }
 }
 
-//목록 접기/펼치기
-function toggleCompletedList() {
-    $('#completedList').slideToggle();
-}
-
+// 목록 접기/펼치기 기능 구현 함수들 (이하 접펼)
+// 접펼 リマインド
 function toggleRemindList() {
     $('#remindList').slideToggle();
 }
 
+// 접펼 予定
 function toggleTaskList() {
     $('#taskList').slideToggle();
+}
+
+// 접펼 完了済み
+function toggleCompletedList() {
+    $('#completedList').slideToggle();
 }
 
 // 할일 목록 완료
