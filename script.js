@@ -90,13 +90,19 @@ function renderTasks() {
     remindList.innerHTML = "";
     completedList.innerHTML = "";
 
+    // 초기화: 리마인드 항목 여부 변수를 false로 설정
+    isReminderExist = false;
+
     tasks.forEach((task) => {
         const li = document.createElement("li");
         const now = new Date();
         const taskDatetime = new Date(task.datetime);
-
         const formattedDatetime = formatDate(taskDatetime);
-
+        const isReminder = task.datetime && now > taskDatetime && !task.completed;
+        // 리마인드 항목인 경우 리마인드 항목 변수를 true로 설정
+        if (isReminder) {
+            isReminderExist = true;
+        }
         if (task.datetime && now > taskDatetime && !task.completed) {
             li.innerHTML = `
                         <span class="remind list-group-item">${task.title}</span>
@@ -112,32 +118,18 @@ function renderTasks() {
                             </div>
                         </span>
                         `;
-
             remindList.appendChild(li);
         } else {
-            const isCompleted =
-                task.completed || (task.datetime && now > taskDatetime);
-
-            li.innerHTML = `<span class="list-group-item
-                d-flex justify-content-between align-items-center ${isCompleted ? "completed" : ""
-                }">
+            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${task.completed ? "completed" : ""}">
                             <div>
                                 ${task.title}
                                 ${task.datetime ? `<br>${formattedDatetime}` : ""}
                             </div>
                             <div>
-                                ${isCompleted
-                    ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>`
-                    : ""
-                }
-                                ${!isCompleted
-                    ? `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>`
-                    : ""
-                }
+                                ${task.completed ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>`}
                             </div>
-                            </span>`;
-
-            if (isCompleted) {
+                        </span>`;
+            if (task.completed) {
                 completedList.appendChild(li);
             } else {
                 taskList.appendChild(li);
@@ -147,6 +139,9 @@ function renderTasks() {
 
     // 변경된 할일 목록을 저장
     saveTasks();
+
+    // 리마인드 항목 여부에 따라 스타일 변경
+    updateReminderStyle();
 }
 
 // ☆ 할일 추가
@@ -184,7 +179,7 @@ function toggleCompleted(id) {
     }
 }
 
-// 일반 기능들 (이하 N)
+// 사용자 경험 개선 등 일반 기능들 (이하 N)
 // N 날짜 및 시간 형식 지정 함수
 function formatDate(date) {
     const now = new Date();
@@ -203,6 +198,21 @@ function formatDate(date) {
     } else {
         const options = { year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" };
         return date.toLocaleDateString("ja-JP", options).replace(/\//g, '/') + " " + date.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }).replace(":", "時 ") + "分";
+    }
+}
+
+// N 리마인드 항목이 있는지 여부를 추적
+let isReminderExist = false;
+
+// N 리마인드 스타일 업데이트 함수
+function updateReminderStyle() {
+    const remindHeader = document.getElementById("remindHeader");
+    if (isReminderExist) {
+        // 리마인드 항목이 있으면 붉은색 스타일 적용
+        remindHeader.style.color = "#8B0000";
+    } else {
+        // 리마인드 항목이 없으면 기본 회색 스타일 적용
+        remindHeader.style.color = "gray";
     }
 }
 
