@@ -16,19 +16,22 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse text-right" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item d-flex align-items-center ml-auto">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto align-items-center">
+                <!-- 우측 정렬을 위한 ml-auto 클래스 추가 -->
+                <li class="nav-item ml-auto">
                     <div class="nav-link custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="repeatAlarm" onchange="toggleRepeatAlarm()">
-                        <label class="custom-control-label" for="repeatAlarm">Re-Remind</label>
+                        <label class="custom-control-label" for="repeatAlarm">Re-Remind &#128164;</label>
                     </div>
-                    <a class="nav-link">
-                        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" onclick="resetApp()">Reset</button>
-                    </a>
-                    <a class="nav-link">
-                        <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" onclick="exitApp()">Exit</button>
-                    </a>
+                </li>
+                <!-- 세 버튼을 같은 줄에 배치 -->
+                <li class="nav-item ml-auto">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-outline-success my-2 my-sm-0" onclick="resetApp()">Reset</button>
+                    <!-- <button class="btn btn-outline-warning my-2 my-sm-0 mx-2" onclick="hideApp()">Tray</button> -->
+                    <button class="btn btn-outline-danger my-2 my-sm-0" onclick="exitApp()">Exit</button>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -57,6 +60,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
