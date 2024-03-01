@@ -1,4 +1,7 @@
-// 앱 로드 시 실행되는 기능들 (이하 初)
+/*①
+* 앱 로드 시 실행되는 기능들 (이하 初)
+*/
+
 // 初 내가 입력한 데이터를 localStorage에 세이브
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks)); // 할일 목록을 tasks라는 이름으로 로컬 저장소에 저장
@@ -28,8 +31,11 @@ if (Notification.permission !== "granted" && Notification.permission !== "denied
     });
 }
 
-// 핵심 기능들 (이하 ☆)
-// 핵심 기능이 손상되면 해당 앱은 제대로 사용할 수 없음
+/*②
+* 핵심 기능들 (이하 ☆)
+* 핵심 기능이 손상되면 해당 앱은 제대로 사용할 수 없음
+*/
+
 // ☆ 시간 동기화 기능
 setInterval(checkNotifications, 1000);
 
@@ -110,25 +116,26 @@ function renderTasks() {
                             d-flex justify-content-between align-items-center">${formattedDatetime}
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-warning btn-sm mr-2"
-                                    style="margin-right: 10px;" onclick="snoozeTask(${task.id})">スヌーズ</button>
-                                <button class="btn btn-danger btn-sm mr-2"
-                                    style="margin-right: 10px;" onclick="deleteTask(${task.id})">削除</button>
+                                    style="margin-right: 10px;" onclick="snoozeTask(${task.id})">&#1F4A4</button>
                                 <button class="btn btn-success btn-sm"
-                                onclick="completeTask(${task.id})">完了</button>
+                                    onclick="completeTask(${task.id})">完了</button>
                             </div>
                         </span>
                         `;
             remindList.appendChild(li);
         } else {
-            li.innerHTML = `<span class="list-group-item d-flex justify-content-between align-items-center ${task.completed ? "completed" : ""}">
-                            <div>
-                                ${task.title}
-                                ${task.datetime ? `<br>${formattedDatetime}` : ""}
-                            </div>
-                            <div>
-                                ${task.completed ? `<button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">削除</button>` : `<button class="btn btn-success btn-sm ml-2" onclick="completeTask(${task.id})">完了</button>`}
-                            </div>
-                        </span>`;
+            li.innerHTML = `
+                            <span class="remind list-group-item">${task.title}</span>
+                            <span class="remind list-group-item
+                                d-flex justify-content-between align-items-center">${task.datetime ? `${formattedDatetime}` : ""}
+                                <div class="d-flex align-items-center">
+                                    ${task.completed ? `
+                                    <button class="btn btn-danger btn-sm mr-2"
+                                        style="margin-right: 10px;" onclick="deleteTask(${task.id})">削除</button>` : `
+                                    <button class="btn btn-success btn-sm"
+                                        style="margin-right: 10px;" onclick="completeTask(${task.id})">完了</button>`}
+                                </div>
+                            </span>`;
             if (task.completed) {
                 completedList.appendChild(li);
             } else {
@@ -179,7 +186,10 @@ function toggleCompleted(id) {
     }
 }
 
-// 사용자 경험 개선 등 일반 기능들 (이하 N)
+/*③
+* 사용자 경험 개선 등 일반 기능들 (이하 N)
+*/
+
 // N 날짜 및 시간 형식 지정 함수
 function formatDate(date) {
     const now = new Date();
@@ -216,14 +226,17 @@ function updateReminderStyle() {
     }
 }
 
-// Re-Remind 기능 (이하 R)
-// R 알람 반복 기능 토글
+/*④
+* Re-Remind 기능 (이하 R)
+*/
+
+// R Re-Remind 기능 토글
 function toggleRepeatAlarm() {
     const repeatAlarm = document.getElementById("repeatAlarm").checked;
     localStorage.setItem("repeatAlarm", repeatAlarm);
 }
 
-// R 알람 반복 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
+// R Re-Remind 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
 window.onload = function () {
     const repeatAlarm = localStorage.getItem("repeatAlarm");
     if (repeatAlarm === "true") {
@@ -231,7 +244,7 @@ window.onload = function () {
     }
 };
 
-// R 알람 반복 기능 설정 저장값 불러오기
+// R Re-Remind 기능 설정 저장값 불러오기
 window.onload = function () {
     const repeatAlarm = localStorage.getItem("repeatAlarm");
     if (repeatAlarm !== null) {
@@ -255,7 +268,10 @@ function toggleCompletedList() {
     $('#completedList').slideToggle();
 }
 
-// 버튼 기능 구현 함수들 (이하 B)
+/*⑤
+* 버튼 기능 구현 함수들 (이하 B)
+*/
+
 // B 할일 목록 완료
 function completeTask(id) {
     const task = tasks.find((task) => task.id === id);
@@ -286,7 +302,10 @@ function deleteTask(id) {
     }
 }
 
-// 앱 초기화 및 종료 (이하 E)
+/*⑥
+* 앱 초기화 및 종료 (이하 E)
+*/
+
 // E 앱 초기화
 function resetApp() {
     localStorage.clear();
