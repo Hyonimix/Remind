@@ -14,9 +14,9 @@ body {
 }
 
 #remindHeader {
-    font-size: 0.9em; /* 글자 크기를 줄입니다. */
-    color: #8B0000; /* 좀 더 어두운 붉은 계통의 색상으로 설정합니다. */
-    font-weight: bold; /* 글자를 볼드로 설정합니다. */
+    font-size: 0.9em;
+    color: #8B0000;
+    font-weight: bold;
 }
 
 .remind,
@@ -41,6 +41,7 @@ body {
 
 .navbar-dark .navbar-brand {
     color: #dee2e6;
+    user-select: none;
 }
 
 .navbar-dark .navbar-brand:hover {
@@ -55,6 +56,14 @@ body {
 .navbar-dark .btn-outline-success:hover {
     background-color: #28a745;
     color: #fff;
+}
+
+.nav-link {
+    user-select: none;
+}
+
+.mt-4 {
+    user-select: none;
 }
 
 .list-group-item {

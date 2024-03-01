@@ -1,0 +1,10 @@
+{
+  "name": "remindelectron",
+  "version": "0.1.0",
+  "author": "D5 Kan",
+  "description": "Remind",
+  "main": "main.js",
+  "scripts": {
+      "start": "electron ."
+  }
+}

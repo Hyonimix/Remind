@@ -116,9 +116,9 @@ function renderTasks() {
                             d-flex justify-content-between align-items-center">${formattedDatetime}
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-warning btn-sm mr-2"
-                                    style="margin-right: 10px;" onclick="snoozeTask(${task.id})">&#1F4A4</button>
+                                    style="margin-right: 10px;" onclick="snoozeTask(${task.id})">&#128164;</button>
                                 <button class="btn btn-success btn-sm"
-                                    onclick="completeTask(${task.id})">完了</button>
+                                    onclick="completeTask(${task.id})">&#128504;</button>
                             </div>
                         </span>
                         `;
@@ -131,9 +131,9 @@ function renderTasks() {
                                 <div class="d-flex align-items-center">
                                     ${task.completed ? `
                                     <button class="btn btn-danger btn-sm mr-2"
-                                        style="margin-right: 10px;" onclick="deleteTask(${task.id})">削除</button>` : `
+                                        style="margin-right: 10px;" onclick="deleteTask(${task.id})">&#128465;</button>` : `
                                     <button class="btn btn-success btn-sm"
-                                        style="margin-right: 10px;" onclick="completeTask(${task.id})">完了</button>`}
+                                        style="margin-right: 10px;" onclick="completeTask(${task.id})">&#128504;</button>`}
                                 </div>
                             </span>`;
             if (task.completed) {
@@ -225,6 +225,35 @@ function updateReminderStyle() {
         remindHeader.style.color = "gray";
     }
 }
+
+// N 내비게이션 바에서 드래그로 창 옮기기
+const dragRegion = document.getElementById('drag-region');
+let offsetX, offsetY;
+dragRegion.addEventListener('mousedown', (e) => {
+    // 마우스 버튼이 눌렸을 때의 좌표 기록
+    offsetX = e.clientX;
+    offsetY = e.clientY;
+
+    // 마우스 이동과 드래그 중에 발생하는 이벤트 처리
+    const mouseMoveHandler = (e) => {
+        const newX = e.clientX;
+        const newY = e.clientY;
+
+        // 창의 위치 이동
+        window.moveTo(window.screenX + (newX - offsetX), window.screenY + (newY - offsetY));
+    };
+
+    // 마우스 버튼을 놓았을 때 이벤트 처리
+    const mouseUpHandler = () => {
+        // 이벤트 리스너 제거
+        window.removeEventListener('mousemove', mouseMoveHandler);
+        window.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    // 마우스 이동과 버튼 놓기 이벤트 리스너 등록
+    window.addEventListener('mousemove', mouseMoveHandler);
+    window.addEventListener('mouseup', mouseUpHandler);
+});
 
 /*④
 * Re-Remind 기능 (이하 R)
