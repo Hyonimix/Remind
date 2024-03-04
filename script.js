@@ -68,12 +68,17 @@ function showNotification(message) {
         Notification.requestPermission().then((permission) => {
             if (permission === "granted") {
                 new Notification("リマインド", { body: message });
+            } else {
+                swal("リマインド", message, "info"); // 푸시 알림 권한을 얻지 못했을 때 SweetAlert를 사용하여 메시지 표시
             }
+        }).catch((error) => {
+            console.error('An error occurred while requesting notification privileges.:', error);
         });
     } else {
-        alert(`リマインド: ${message}`);
+        swal("リマインド", message, "info"); // 푸시 알림 권한을 거부한 경우 SweetAlert를 사용하여 메시지 표시
     }
 }
+
 
 // ☆ 알림 목록에 할일이 있는지 확인하는 함수
 function isTaskInRemindList(task) {
@@ -162,17 +167,23 @@ function addTask() {
 
     // 현재 시간 이후인지 확인
     if (selectedDatetime <= now) {
-        alert("入力した日付と時間が過去になっています。");
+        swal('登録失敗','入力した日付と時間が過去になっています。','error');
         return;
     }
 
     // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value && !datetimeInput.value) {
-        alert("内容と予定時間を入力してください。");
+        swal('登録失敗','内容と予定時間を入力してください。','error');
     } else if (!taskInput.value) {
-        alert("内容を入力してください。");
+        swal('登録失敗','内容を入力してください。','error');
     } else if (!datetimeInput.value) {
-        alert("下のテキストボックスをタップして日付と時間を入力してください。");
+        swal({
+            title: "登録失敗",
+            text: "下のテキストボックスをタップして、\n日付と時間を入力してください。",
+            icon: "error",
+            button: "確認",
+            html: true
+        });
     } else {
         const newTask = {
             id: tasks.length + 1,
@@ -350,13 +361,59 @@ function deleteTask(id) {
 
 // E 앱 초기화
 function resetApp() {
-    localStorage.clear();
-    location.reload();
+    swal({
+        title: "リセットしますか？",
+        text: "全てのデータは削除されます。",
+        icon: "warning",
+        buttons: ["キャンセル", "リセット"],
+        dangerMode: true,
+        html: true
+    }).then((willReset) => {
+        if (willReset) {
+            localStorage.clear();
+            location.reload();
+        }
+    });
 }
 
 // E 앱 종료
 function exitApp() {
-    window.close();
+    // 이 후에 표시하지 않음 옵션 로드
+    const dontShowAgainChecked = localStorage.getItem("dontShowAgainChecked") === "true";
+
+    // 이 후에 표시하지 않음 옵션이 체크된 경우, 바로 종료
+    if (dontShowAgainChecked) {
+        window.close();
+        return;
+    }
+
+    swal({
+        title: "終了しますか？",
+        text: "アプリの通知が来なくなります。\nトレイアイコンをクリックして、\nアプリを最小化できます。",
+        icon: "warning",
+        buttons: ["キャンセル", "終了"],
+        dangerMode: true,
+        content: {
+            element: "div",
+            attributes: {
+                innerHTML: `
+                    <input id="dontShowAgain" type="checkbox" class="custom-control-input" ${dontShowAgainChecked ? 'checked' : ''}>
+                    <label for="dontShowAgain" class="custom-control-label" style="color: #555555;">今後表示しない</label>
+                `
+            }
+        },
+        closeOnClickOutside: false, // 체크박스를 클릭한 경우 다이얼로그 닫힘 방지
+        html: true
+    }).then((willExit) => {
+        const dontShowAgain = document.getElementById("dontShowAgain");
+        if (willExit) {
+            if (dontShowAgain.checked) {
+                // 이후에 이 메시지를 표시하지 않음 옵션 저장
+                localStorage.setItem("dontShowAgainChecked", "true");
+            }
+            window.close();
+        }
+    });
 }
 
 // 초기 렌더링

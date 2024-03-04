@@ -108,3 +108,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.swal-title,
+.swal-text,
+.swal-footer {
+    text-align: center !important; /* 모든 텍스트를 가운데 정렬 */
+}
+
+.swal-content input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+    appearance: checkbox;
+    margin-right: 5px;
+    vertical-align: middle;
+}
