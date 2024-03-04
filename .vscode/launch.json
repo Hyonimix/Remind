@@ -8,6 +8,7 @@
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/.",
+            "protocol": "auto",
             "console": "integratedTerminal",
             "outputCapture": "std"
         }
