@@ -5,6 +5,8 @@
   "description": "Remind",
   "main": "main.js",
   "scripts": {
-      "start": "electron ."
+      "start": "electron .",
+      "pack": "electron-builder --dir",
+      "dist": "electron-builder"
   }
 }
