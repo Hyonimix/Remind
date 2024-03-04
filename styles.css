@@ -112,7 +112,8 @@ body {
 .swal-title,
 .swal-text,
 .swal-footer {
-    text-align: center !important; /* 모든 텍스트를 가운데 정렬 */
+    text-align: center !important;
+    user-select: none;
 }
 
 .swal-content input[type="checkbox"] {
@@ -120,4 +121,5 @@ body {
     appearance: checkbox;
     margin-right: 5px;
     vertical-align: middle;
+    user-select: none;
 }
