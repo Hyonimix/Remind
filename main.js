@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, Tray, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu } = require('electron');
 const path = require('path');
 
 // 윈도우 생성 시 기본 옵션
