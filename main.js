@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require('electron');
+const { app, BrowserWindow, dialog, Tray, Menu, ipcMain } = require('electron');
 const path = require('path');
 
 // 윈도우 생성 시 기본 옵션
@@ -17,7 +17,26 @@ function createWindow() {
         // movable: true
     });
 
+
+
     win.loadFile('index.html');
+
+    // 트레이 생성
+    tray = new Tray(path.join(__dirname, 'icon.png'));
+
+    // 트레이 클릭 시 윈도우 보이기/숨기기 토글
+    tray.on('click', () => {
+        win.isVisible() ? win.hide() : win.show();
+    });
+
+    // 트레이 컨텍스트 메뉴
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Show App', click: () => win.show() },
+        { label: 'Quit', click: () => app.quit() }
+    ]);
+
+    // 트레이에 컨텍스트 메뉴 설정
+    tray.setContextMenu(contextMenu);
 }
 
 // 윈도우 생성 명령
@@ -29,6 +48,9 @@ app.whenReady().then(() => {
             createWindow();
         }
     });
+    if (process.platform === 'win32') {
+        app.setAppUserModelId("Remind");
+    }
 });
 
 // 앱 종료
