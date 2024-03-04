@@ -341,12 +341,6 @@ function resetApp() {
     location.reload();
 }
 
-// E 앱 숨기기
-function hideApp() {
-    window.hide();
-}
-
-
 // E 앱 종료
 function exitApp() {
     window.close();
