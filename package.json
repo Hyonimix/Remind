@@ -18,7 +18,8 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "electronVersion": "10.0.0",
+    "asar": true,
+    "electronVersion": "25.4.0",
     "productName": "Remind",
     "appId": "com.hyonimix.remind",
     "win": {
