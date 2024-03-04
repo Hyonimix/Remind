@@ -281,7 +281,10 @@ window.onload = function () {
     }
 };
 
-// 목록 접기/펼치기 기능 구현 함수들 (이하 F)
+/*⑤
+* 목록 접기/펼치기 기능 구현 함수들 (이하 F)
+*/
+
 // F リマインド
 function toggleRemindList() {
     $('#remindList').slideToggle();
@@ -297,7 +300,7 @@ function toggleCompletedList() {
     $('#completedList').slideToggle();
 }
 
-/*⑤
+/*⑥
 * 버튼 기능 구현 함수들 (이하 B)
 */
 
@@ -331,7 +334,7 @@ function deleteTask(id) {
     }
 }
 
-/*⑥
+/*⑦
 * 앱 초기화 및 종료 (이하 E)
 */
 
