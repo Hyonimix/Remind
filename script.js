@@ -156,6 +156,16 @@ function addTask() {
     const taskInput = document.getElementById("taskInput"); // 할일 내용 입력란
     const datetimeInput = document.getElementById("datetimeInput"); // 할일 시간 입력란
 
+    // 입력된 날짜 및 시간을 Date 객체로 변환
+    const selectedDatetime = new Date(datetimeInput.value);
+    const now = new Date();
+
+    // 현재 시간 이후인지 확인
+    if (selectedDatetime <= now) {
+        alert("入力した日付と時間が過去になっています。");
+        return;
+    }
+
     // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value && !datetimeInput.value) {
         alert("内容と予定時間を入力してください。");
