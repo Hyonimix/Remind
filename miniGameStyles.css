@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 위쪽 화면 스타일 */
+.main-screen {
+    height: 50%;
+    background-color: #343a40; /* 배경색 */
+    color: white; /* 텍스트 색상 지정 */
+    flex: 1;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+}
+
+/* 아래쪽 화면 스타일 */
+.sub-screen {
+    height: 50%;
+    background-color: #6c757d; /* 배경색 */
+    flex: 1;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+}
