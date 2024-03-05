@@ -1,4 +1,4 @@
-/*①
+/* ①
 * 앱 로드 시 실행되는 기능들 (이하 初)
 */
 
@@ -31,7 +31,7 @@ if (Notification.permission !== "granted" && Notification.permission !== "denied
     });
 }
 
-/*②
+/* ②
 * 핵심 기능들 (이하 ☆)
 * 핵심 기능이 손상되면 해당 앱은 제대로 사용할 수 없음
 */
@@ -178,7 +178,7 @@ function addTask() {
     if (selectedDatetime <= now) {
         Swal.fire({
             title: "登録失敗",
-            html: '<div>入力した日付と時間が過去になっています。</div>',
+            html: '<div>入力した日付と時間が<br>過去になっています。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -189,7 +189,7 @@ function addTask() {
     if (!taskInput.value && !datetimeInput.value) {
         Swal.fire({
             title: "登録失敗",
-            html: '<div>内容と予定時間を入力してください。</div>',
+            html: '<div>内容と予定時間を<br>入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -230,7 +230,7 @@ function toggleCompleted(id) {
     }
 }
 
-/*③
+/* ③
 * 사용자 경험 개선 등 일반 기능들 (이하 N)
 */
 
@@ -321,31 +321,32 @@ $(document).ready(function () {
         clearTimeout(timeout);
         timeout = setTimeout(function () {
             clickCount = 0;
-        }, 135);
+        }, 200);
         if (clickCount == 3) {
             Swal.fire({
                 title: "やりましたね！",
                 html: '<div>このアプリを作った人は、<br>あなたがこのメッセージを見ることを予想していませんでした。</div>',
                 icon: "success",
                 confirmButtonText: "確認",
-                footer: '<a href="miniGame.html">ご褒美をもらいたいですか？</a>'
+                footer: '<a href="miniGame.html" id="rewardLink">ご褒美をもらいたいですか？</a>'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 클릭한 적이 있는지 플래그를 localStorage에 저장
+                    localStorage.setItem("easterEggClicked", true);
+                }
             });
             clickCount = 0;
         }
     });
 });
 
-/*④
-* Re-Remind 기능 (이하 R)
-*/
-
-// R Re-Remind 기능 토글
+// N Re-Remind 기능 토글
 function toggleRepeatAlarm() {
     const repeatAlarm = document.getElementById("repeatAlarm").checked;
     localStorage.setItem("repeatAlarm", repeatAlarm);
 }
 
-// R Re-Remind 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
+// N Re-Remind 기능이 켜져있다면, 10분마다 반복해서 알림 표시하도록 설정
 window.onload = function () {
     const repeatAlarm = localStorage.getItem("repeatAlarm");
     if (repeatAlarm === "true") {
@@ -353,7 +354,7 @@ window.onload = function () {
     }
 };
 
-// R Re-Remind 기능 설정 저장값 불러오기
+// N Re-Remind 기능 설정 저장값 불러오기
 window.onload = function () {
     const repeatAlarm = localStorage.getItem("repeatAlarm");
     if (repeatAlarm !== null) {
@@ -361,7 +362,7 @@ window.onload = function () {
     }
 };
 
-/*⑤
+/* ④
 * 목록 접기/펼치기 기능 구현 함수들 (이하 F)
 */
 
@@ -380,7 +381,7 @@ function toggleCompletedList() {
     $('#completedList').slideToggle();
 }
 
-/*⑥
+/* ⑤
 * 버튼 기능 구현 함수들 (이하 B)
 */
 
@@ -414,7 +415,7 @@ function deleteTask(id) {
     }
 }
 
-/*⑦
+/* ⑥
 * 앱 초기화 및 종료 (이하 E)
 */
 

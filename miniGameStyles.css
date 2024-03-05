@@ -4,23 +4,59 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-/* 위쪽 화면 스타일 */
 .main-screen {
     height: 50%;
-    background-color: #343a40; /* 배경색 */
-    color: white; /* 텍스트 색상 지정 */
-    flex: 1;
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 아래쪽 화면 스타일 */
 .sub-screen {
     height: 50%;
-    background-color: #6c757d; /* 배경색 */
-    flex: 1;
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 가로 중앙 정렬 */
+    background-color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.retro-screen {
+    width: 80%;
+    height: 80%;
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    margin: 10% auto;
+}
+
+/* 뒤로가기 버튼 스타일 */
+.back-button {
+    position: fixed;
+    top: 2.5%;
+    right: 5%;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0.50;
+}
+
+.back-button:hover {
+    color: lightgray;
+    opacity: 1;
 }

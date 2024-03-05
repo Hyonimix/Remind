@@ -150,7 +150,7 @@ body {
 #scrollToTopBtn {
     position: fixed;
     top: 82.5%;
-    right: 20px;
+    right: 5%;
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
@@ -174,7 +174,7 @@ body {
 #scrollToBottomBtn {
     position: fixed;
     top: 90%;
-    right: 20px;
+    right: 5%;
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
