@@ -71,7 +71,7 @@ function showNotification(message) {
             } else {
                 Swal.fire({
                     title: "リマインド",
-                    text: message,
+                    html: message,
                     confirmButtonText: "確認",
                     icon: "info"
                 }); // 푸시 알림 권한을 얻지 못했을 때 SweetAlert를 사용하여 메시지 표시
@@ -82,7 +82,7 @@ function showNotification(message) {
     } else {
         Swal.fire({
             title: "リマインド",
-            text: message,
+            html: message,
             confirmButtonText: "確認",
             icon: "info"
         }); // 푸시 알림 권한을 거부한 경우 SweetAlert를 사용하여 메시지 표시
@@ -178,7 +178,7 @@ function addTask() {
     if (selectedDatetime <= now) {
         Swal.fire({
             title: "登録失敗",
-            text: "入力した日付と時間が過去になっています。",
+            html: '<div>入力した日付と時間が過去になっています。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -189,21 +189,21 @@ function addTask() {
     if (!taskInput.value && !datetimeInput.value) {
         Swal.fire({
             title: "登録失敗",
-            text: "内容と予定時間を入力してください。",
+            html: '<div>内容と予定時間を入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
     } else if (!taskInput.value) {
         Swal.fire({
             title: "登録失敗",
-            text: "内容を入力してください。",
+            html: '<div>内容を入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
     } else if (!datetimeInput.value) {
         Swal.fire({
             title: "登録失敗",
-            text: "下のテキストボックスをタップして、\n日付と時間を入力してください。",
+            html: '<div>下のテキストボックスをタップして、<br>日付と時間を入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -321,13 +321,14 @@ $(document).ready(function () {
         clearTimeout(timeout);
         timeout = setTimeout(function () {
             clickCount = 0;
-        }, 130);
+        }, 135);
         if (clickCount == 3) {
             Swal.fire({
                 title: "やりましたね！",
-                text: "このアプリを作った人は、\nあなたがこのメッセージを見ることを予想していませんでした。",
-                icon: "warning",
-                confirmButtonText: "確認"
+                html: '<div>このアプリを作った人は、<br>あなたがこのメッセージを見ることを予想していませんでした。</div>',
+                icon: "success",
+                confirmButtonText: "確認",
+                footer: '<a href="miniGame.html">ご褒美をもらいたいですか？</a>'
             });
             clickCount = 0;
         }
@@ -421,7 +422,7 @@ function deleteTask(id) {
 function resetApp() {
     Swal.fire({
         title: "リセットしますか？",
-        text: "全てのデータは削除されます。",
+        html: '<div>全てのデータは削除されます。</div>',
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -452,7 +453,15 @@ function exitApp() {
 
     Swal.fire({
         title: "終了しますか？",
-        text: "アプリの通知が来なくなります。\nトレイアイコンをクリックして、\nアプリを最小化できます。",
+        html: `
+            <div>
+                アプリの通知が来なくなります。<br>
+                トレイアイコンをクリックして、<br>
+                アプリを最小化できます。<br><br>
+                <input id="dontShowAgain" type="checkbox" class="custom-control-input" ${dontShowAgainChecked ? 'checked' : ''}>
+                <label for="dontShowAgain" class="custom-control-label" style="color: #555555;">今後表示しない</label>
+            </div>
+        `,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -460,8 +469,6 @@ function exitApp() {
         confirmButtonText: "終了",
         cancelButtonText: "キャンセル",
         reverseButtons: true,
-        html: `<input id="dontShowAgain" type="checkbox" class="custom-control-input" ${dontShowAgainChecked ? 'checked' : ''}>
-            <label for="dontShowAgain" class="custom-control-label" style="color: #555555;">今後表示しない</label>`,
         preConfirm: () => {
             const dontShowAgain = document.getElementById("dontShowAgain");
             if (dontShowAgain.checked) {
@@ -472,6 +479,7 @@ function exitApp() {
         },
         closeOnClickOutside: false // 체크박스를 클릭한 경우 다이얼로그 닫힘 방지
     });
+    
 }
 
 // 초기 렌더링
