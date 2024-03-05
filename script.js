@@ -178,7 +178,7 @@ function addTask() {
     if (selectedDatetime <= now) {
         Swal.fire({
             title: "登録失敗",
-            html: '<div>入力した日付と時間が<br>過去になっています。</div>',
+            html: '<div>入力した日付と時間が、<br>過去になっています。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -189,7 +189,7 @@ function addTask() {
     if (!taskInput.value && !datetimeInput.value) {
         Swal.fire({
             title: "登録失敗",
-            html: '<div>内容と予定時間を<br>入力してください。</div>',
+            html: '<div>内容・時間を入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
@@ -203,7 +203,7 @@ function addTask() {
     } else if (!datetimeInput.value) {
         Swal.fire({
             title: "登録失敗",
-            html: '<div>下のテキストボックスをタップして、<br>日付と時間を入力してください。</div>',
+            html: '<div>日付・時間を入力してください。</div>',
             icon: "error",
             confirmButtonText: "確認"
         });
