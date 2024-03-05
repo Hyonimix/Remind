@@ -263,10 +263,12 @@ function updateReminderStyle() {
     const remindHeader = document.getElementById("remindHeader");
     if (isReminderExist) {
         // 리마인드 항목이 있으면 붉은색 스타일 적용
-        remindHeader.style.color = "#8B0000";
+        remindHeader.style.color = "#BB0000";
+        remindHeader.style.textShadow = "0 0 2px white"; // 흰색 테두리 추가
     } else {
         // 리마인드 항목이 없으면 기본 회색 스타일 적용
         remindHeader.style.color = "gray";
+        remindHeader.style.textShadow = "none"; // 테두리 제거
     }
 }
 
