@@ -166,7 +166,13 @@ function addTask() {
 
     // 현재 시간 이후인지 확인
     if (selectedDatetime <= now) {
-        swal('登録失敗','入力した日付と時間が過去になっています。','error');
+        swal({
+            title: "登録失敗",
+            text: "入力した日付と時間が過去になっています。",
+            icon: "error",
+            button: "確認",
+            html: true
+        });
         return;
     }
 
