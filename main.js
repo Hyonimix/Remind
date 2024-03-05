@@ -31,8 +31,8 @@ function createWindow() {
 
     // 트레이 컨텍스트 메뉴
     const contextMenu = Menu.buildFromTemplate([
-        { label: 'Show App', click: () => win.show() },
-        { label: 'Quit', click: () => app.quit() }
+        { label: '開く', click: () => win.show() },
+        { label: '終了', click: () => app.quit() }
     ]);
 
     // 트레이에 컨텍스트 메뉴 설정
