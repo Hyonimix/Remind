@@ -91,9 +91,9 @@ body {
     color: #868e96;
 }
 
-/* 스크롤바 */
 ::-webkit-scrollbar {
     width: 10px;
+    display: none;
 }
 
 ::-webkit-scrollbar-track {
@@ -122,4 +122,52 @@ body {
     margin-right: 5px;
     vertical-align: middle;
     user-select: none;
+}
+
+#scrollToTopBtn {
+    position: fixed;
+    top: 82.5%;
+    right: 20px;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0.25;
+}
+
+#scrollToTopBtn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+}
+
+#scrollToBottomBtn {
+    position: fixed;
+    top: 90%;
+    right: 20px;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0.25;
+}
+
+#scrollToBottomBtn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
 }
