@@ -24,9 +24,9 @@ const tasks = loadTasks();
 if (Notification.permission !== "granted" && Notification.permission !== "denied") {
     Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
-            console.log("Notification 허가됨");
+            console.log("Notification granted");
         } else {
-            console.log("Notification 거부됨");
+            console.log("Notification denied");
         }
     });
 }
