@@ -79,7 +79,6 @@ function showNotification(message) {
     }
 }
 
-
 // ☆ 알림 목록에 할일이 있는지 확인하는 함수
 function isTaskInRemindList(task) {
     const remindList = document.getElementById("remindList");
@@ -173,9 +172,21 @@ function addTask() {
 
     // 할일 내용 또는 시간이 입력되지 않았을 경우 추가되지 않도록 함
     if (!taskInput.value && !datetimeInput.value) {
-        swal('登録失敗','内容と予定時間を入力してください。','error');
+        swal({
+            title: "登録失敗",
+            text: "内容と予定時間を入力してください。",
+            icon: "error",
+            button: "確認",
+            html: true
+        });
     } else if (!taskInput.value) {
-        swal('登録失敗','内容を入力してください。','error');
+        swal({
+            title: "登録失敗",
+            text: "内容を入力してください。",
+            icon: "error",
+            button: "確認",
+            html: true
+        });
     } else if (!datetimeInput.value) {
         swal({
             title: "登録失敗",
