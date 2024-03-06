@@ -1,11 +1,14 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron');
 const path = require('path');
 
+// 원래 창 크기를 저장할 전역 변수
+let originalWindowSize = { width: 360, height: 640 };
+
 // 윈도우 생성 시 기본 옵션
 function createWindow() {
     const win = new BrowserWindow({
-        width: 360,
-        height: 640,
+        width: originalWindowSize.width,
+        height: originalWindowSize.height,
         resizable: false,
         frame: false,
         autoHideMenuBar: true,
@@ -17,7 +20,11 @@ function createWindow() {
         // movable: true
     });
 
-
+    // 윈도우 크기 변경 감지
+    win.on('resize', () => {
+        // 크기를 원래 크기로 되돌립니다.
+        win.setSize(originalWindowSize.width, originalWindowSize.height);
+    });
 
     win.loadFile('index.html');
 
