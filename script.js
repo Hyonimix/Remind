@@ -301,8 +301,6 @@ dragRegion.addEventListener('mousedown', (e) => {
     window.addEventListener('mouseup', mouseUpHandler);
 });
 
-
-
 // N 상단으로 가는 스크롤 버튼
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

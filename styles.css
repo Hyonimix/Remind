@@ -162,13 +162,15 @@ body {
     line-height: 40px;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     opacity: 0.25;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #scrollToTopBtn:hover {
     background-color: rgba(0, 0, 0, 0.8);
     opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 #scrollToBottomBtn {
@@ -186,11 +188,13 @@ body {
     line-height: 40px;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     opacity: 0.25;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #scrollToBottomBtn:hover {
     background-color: rgba(0, 0, 0, 0.8);
     opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }

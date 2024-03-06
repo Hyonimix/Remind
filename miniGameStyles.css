@@ -52,11 +52,13 @@ body {
     line-height: 40px;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     opacity: 0.50;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .back-button:hover {
     color: lightgray;
     opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
