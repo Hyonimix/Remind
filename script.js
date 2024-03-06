@@ -272,31 +272,27 @@ function updateReminderStyle() {
     }
 }
 
-// N 내비게이션 바에서 드래그로 창 옮기기
+// 내비게이션 바에서 드래그로 창 옮기기
 const dragRegion = document.getElementById('drag-region');
-let offsetX, offsetY;
+let startX, startY, initialMouseX, initialMouseY;
 dragRegion.addEventListener('mousedown', (e) => {
-    // 마우스 버튼이 눌렸을 때의 좌표 기록
-    offsetX = e.clientX;
-    offsetY = e.clientY;
+    startX = window.screenX;
+    startY = window.screenY;
+    initialMouseX = e.screenX;
+    initialMouseY = e.screenY;
 
-    // 마우스 이동과 드래그 중에 발생하는 이벤트 처리
     const mouseMoveHandler = (e) => {
-        const newX = e.clientX;
-        const newY = e.clientY;
+        const deltaX = e.screenX - initialMouseX;
+        const deltaY = e.screenY - initialMouseY;
 
-        // 창의 위치 이동
-        window.moveTo(window.screenX + (newX - offsetX), window.screenY + (newY - offsetY));
+        window.moveTo(startX + deltaX, startY + deltaY);
     };
 
-    // 마우스 버튼을 놓았을 때 이벤트 처리
     const mouseUpHandler = () => {
-        // 이벤트 리스너 제거
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
     };
 
-    // 마우스 이동과 버튼 놓기 이벤트 리스너 등록
     window.addEventListener('mousemove', mouseMoveHandler);
     window.addEventListener('mouseup', mouseUpHandler);
 });

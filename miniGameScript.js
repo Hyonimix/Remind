@@ -10,13 +10,21 @@ function startDrag(event) {
     const offsetX = event.clientX;
     const offsetY = event.clientY;
 
+    // 현재 창의 위치 기록
+    const initialX = window.screenX;
+    const initialY = window.screenY;
+
     // 마우스 이동과 드래그 중에 발생하는 이벤트 처리
     const mouseMoveHandler = (e) => {
         const newX = e.clientX;
         const newY = e.clientY;
 
+        // 새로운 창의 위치 계산
+        const newWindowX = initialX + (newX - offsetX);
+        const newWindowY = initialY + (newY - offsetY);
+
         // 창의 위치 이동
-        window.moveTo(window.screenX + (newX - offsetX), window.screenY + (newY - offsetY));
+        window.moveTo(newWindowX, newWindowY);
     };
 
     // 마우스 버튼을 놓았을 때 이벤트 처리
