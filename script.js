@@ -299,7 +299,7 @@ $(document).ready(function () {
                 html: '<div>このアプリを作った人は、<br>あなたがこのメッセージを見ることを予想していませんでした。</div>',
                 icon: "success",
                 confirmButtonText: "確認",
-                footer: '<a href="miniGame.html" id="rewardLink">ご褒美をもらいたいですか？</a>'
+                footer: '<a href="./ee/index.html" id="rewardLink">ご褒美をもらいたいですか？</a>'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // 클릭한 적이 있는지 플래그를 localStorage에 저장
