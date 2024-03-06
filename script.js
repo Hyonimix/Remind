@@ -272,31 +272,6 @@ function updateReminderStyle() {
     }
 }
 
-// 내비게이션 바에서 드래그로 창 옮기기
-const dragRegion = document.getElementById('drag-region');
-let startX, startY, initialMouseX, initialMouseY;
-dragRegion.addEventListener('mousedown', (e) => {
-    startX = window.screenX;
-    startY = window.screenY;
-    initialMouseX = e.screenX;
-    initialMouseY = e.screenY;
-
-    const mouseMoveHandler = (e) => {
-        const deltaX = e.screenX - initialMouseX;
-        const deltaY = e.screenY - initialMouseY;
-
-        window.moveTo(startX + deltaX, startY + deltaY);
-    };
-
-    const mouseUpHandler = () => {
-        window.removeEventListener('mousemove', mouseMoveHandler);
-        window.removeEventListener('mouseup', mouseUpHandler);
-    };
-
-    window.addEventListener('mousemove', mouseMoveHandler);
-    window.addEventListener('mouseup', mouseUpHandler);
-});
-
 // N 상단으로 가는 스크롤 버튼
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

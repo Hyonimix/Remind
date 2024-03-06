@@ -14,6 +14,16 @@ body {
     flex-direction: column;
 }
 
+#drag-region {
+    -webkit-app-region: drag;
+}
+
+#drag-region .navbar-brand,
+#drag-region .navbar-toggler,
+#drag-region .navbar-nav {
+    -webkit-app-region: no-drag;
+}
+
 #remindHeader {
     font-size: 0.9em;
     color: gray;
