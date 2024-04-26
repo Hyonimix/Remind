@@ -282,34 +282,6 @@ function scrollToBottom() {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 
-// N 이스터 에그
-var clickCount = 0;
-var timeout;
-
-$(document).ready(function () {
-    $("#drag-region").click(function () {
-        clickCount++;
-        clearTimeout(timeout);
-        timeout = setTimeout(function () {
-            clickCount = 0;
-        }, 200);
-        if (clickCount == 3) {
-            Swal.fire({
-                title: "やりましたね！",
-                html: '<div>このアプリを作った人は、<br>あなたがこのメッセージを見ることを予想していませんでした。</div>',
-                icon: "success",
-                confirmButtonText: "確認",
-                footer: '<a href="./ee/index.html" id="rewardLink">ご褒美をもらいたいですか？</a>'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // 클릭한 적이 있는지 플래그를 localStorage에 저장
-                    localStorage.setItem("easterEggClicked", true);
-                }
-            });
-            clickCount = 0;
-        }
-    });
-});
 
 // N Re-Remind 기능 토글
 function toggleRepeatAlarm() {
