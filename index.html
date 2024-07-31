@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>リマインド</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="drag-region">
+        <a class="navbar-brand" href="#">
+            <img src="icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            リマインド
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-flex align-items-center ml-auto">
+                    <div class="nav-link custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="repeatAlarm"
+                            onchange="toggleRepeatAlarm()">
+                        <label class="custom-control-label" for="repeatAlarm">Re-Remind</label>
+                    </div>
+                    <a class="nav-link">
+                        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" onclick="resetApp()">Reset</button>
+                    </a>
+                    <a class="nav-link">
+                        <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" onclick="exitApp()">Exit</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="add-task">
+            <!-- 사용자 데이터 입력폼 -->
+            <input type="text" id="taskInput" class="form-control" placeholder="内容">
+            <input type="datetime-local" id="datetimeInput" class="form-control">
+            <button class="btn btn-primary mt-2" onclick="addTask()">追加</button>
+        </div>
+        <h2 class="h4 mt-4" id="remindHeader" onclick="toggleRemindList()">リマインド</h2>
+        <ul id="remindList" class="list-group"></ul>
+        <h2 class="h4 mt-4" onclick="toggleTaskList()">予定</h2>
+        <ul id="taskList" class="list-group mt-3"></ul>
+        <h2 class="h4 mt-4 completedListHeader" onclick="toggleCompletedList()">完了済み（タップして開く）</h2>
+        <ul id="completedList" class="list-group completedList"></ul>
+    </div>
+
+    <footer class="container mt-4 text-center text-muted">
+        D5 Kan<br>
+        github.com/Hyonimix
+    </footer>
+
+    <button id="scrollToTopBtn" onclick="scrollToTop()">&#8679;</button>
+    <button id="scrollToBottomBtn" onclick="scrollToBottom()">&#8681;</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
